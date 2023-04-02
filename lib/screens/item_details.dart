@@ -2,7 +2,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eqwido/models/colors.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../models/product.dart';
@@ -25,10 +27,12 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     return Scaffold(
       appBar: AppBar(elevation: 0),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
+        width: Get.width,
+        height: Get.height,
         decoration: const BoxDecoration(
+          color: kSecondaryColor,
           image: DecorationImage(
+            filterQuality: FilterQuality.high,
             image: AssetImage("assets/image/CardDetailsBg.png"),
             fit: BoxFit.fill,
           ),
@@ -41,7 +45,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
               const SizedBox(height: 18),
               CarouselSlider.builder(
                   options: CarouselOptions(
-                    height: 200,
+                    height: 180,
                     autoPlay: false,
                     enlargeCenterPage: true,
                     enableInfiniteScroll: false,
@@ -90,11 +94,12 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                     Text(
                       'Description',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
                     ),
                   ],
                 ),
               ),
+              // description body
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Row(
@@ -103,78 +108,97 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       child: AutoSizeText(
                         '${product.elementAt(widget.index)['description']}',
                         maxLines: 5,
-                        minFontSize: 10,
-                        maxFontSize: 14,
+                        minFontSize: 13,
+                        maxFontSize: 17,
                         overflow: TextOverflow.clip,
                       ),
                     ),
                   ],
                 ),
               ),
+              // expandable specefication
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ExpandableNotifier(
+                  child: ScrollOnExpand(
+                    child: ExpandablePanel(
+                      theme: const ExpandableThemeData(
+                          iconColor: kOrangeColor, iconSize: 30),
+                      header: const Text(
+                        'Specification',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      ),
+                      collapsed: const SizedBox(),
+                      expanded: AutoSizeText(
+                        '${product.elementAt(widget.index)['description']}',
+                        maxLines: 5,
+                        minFontSize: 13,
+                        maxFontSize: 17,
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // shop location
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Divider(color: Colors.grey[800], thickness: 2),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Specification',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                child: ExpandableNotifier(
+                  child: ScrollOnExpand(
+                    child: ExpandablePanel(
+                      theme: const ExpandableThemeData(
+                          iconColor: kOrangeColor, iconSize: 30),
+                      header: const Text(
+                        'Shop location',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      ),
+                      collapsed: const SizedBox(),
+                      expanded: AutoSizeText(
+                        '${product.elementAt(widget.index)['description']}',
+                        maxLines: 5,
+                        minFontSize: 13,
+                        maxFontSize: 17,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.keyboard_arrow_down_rounded,
-                            color: kOrangeColor, size: 33))
-                  ],
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Divider(color: Colors.grey[800], thickness: 2),
               ),
+              // reviews
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Shop location',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: ExpandableNotifier(
+                  child: ScrollOnExpand(
+                    child: ExpandablePanel(
+                      theme: const ExpandableThemeData(
+                        iconColor: kOrangeColor,
+                        iconSize: 30,
+                      ),
+                      header: const Text(
+                        'Reviews',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      ),
+                      collapsed: const SizedBox(),
+                      expanded: AutoSizeText(
+                        '${product.elementAt(widget.index)['description']}',
+                        maxLines: 5,
+                        minFontSize: 13,
+                        maxFontSize: 17,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.keyboard_arrow_down_rounded,
-                            color: kOrangeColor, size: 33))
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(color: Colors.grey[800], thickness: 2),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Reviews',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.keyboard_arrow_down_rounded,
-                            color: kOrangeColor, size: 33))
-                  ],
+                  ),
                 ),
               ),
             ],

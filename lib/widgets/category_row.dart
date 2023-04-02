@@ -13,7 +13,7 @@ class CategoryRow extends StatefulWidget {
 
 class _CategoryRowState extends State<CategoryRow> {
   int selectedIndex = 0;
-  List categories = ["All", "Furneture", "Vegetabls", "Cars", 'bikes','electronics','Mobile phone'];
+  List categories = ["All", "Furneture", "Cars", 'bikes','electronics','Mobile phone'];
   @override
   Widget build(BuildContext context) {
     return Container(

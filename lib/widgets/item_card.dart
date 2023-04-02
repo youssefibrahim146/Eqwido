@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eqwido/models/colors.dart';
 import 'package:eqwido/models/constants.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,9 @@ class _ItemCardState extends State<ItemCard> {
         ),
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: (){Get.to(ItemDetailsScreen(index: index));},
+            onTap: () {
+              Get.to(ItemDetailsScreen(index: index));
+            },
             child: Container(
               //padding: const EdgeInsets.symmetric(vertical: 2),
               width: (Get.width / 2) - 10,
@@ -56,7 +59,8 @@ class _ItemCardState extends State<ItemCard> {
                             ),
                           ),
                           // ------- price -------------
-                          child: Text("${product.elementAt(index)['price']} EGP",
+                          child: Text(
+                              "${product.elementAt(index)['price']} EGP",
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 13)),
                         ),
@@ -84,18 +88,33 @@ class _ItemCardState extends State<ItemCard> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(28),
-                      child: Image.network(
-                        '${product.elementAt(index)['image'][0]}',
-                        fit: BoxFit.cover,
+                      child: CachedNetworkImage(
                         width: double.infinity,
-                      ),
+                        placeholder: ((context, url) =>
+                            const Center(child: CircularProgressIndicator(color: kOrangeColor,))),
+                        imageUrl: product.elementAt(index)['image'][0],
+                        fit: BoxFit.fill,
+                        imageBuilder: ((context, imageProvider) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
+                            )),
+                          );
+                        }),
+                      ), /* Image.network(
+                        '${product.elementAt(index)['image'][0]}',
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                      ), */
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     '${product.elementAt(index)['title']}',
                     maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.clip,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 17),
                   ),
@@ -111,7 +130,9 @@ class _ItemCardState extends State<ItemCard> {
                       AutoSizeText(
                         '${product.elementAt(index)['seller']}',
                         maxLines: 1,
-                        overflow: TextOverflow.clip,
+                        maxFontSize: 12,
+                        minFontSize: 5,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
@@ -143,7 +164,8 @@ class _ItemCardState extends State<ItemCard> {
                   ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(kOrangeColor),
+                        backgroundColor:
+                            MaterialStateProperty.all(kOrangeColor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)))),
                     child: const Text(
