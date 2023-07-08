@@ -2,8 +2,15 @@ import 'package:eqwido/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool isEdite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +18,11 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                isEdite ? isEdite = false : isEdite = true;
+              });
+            },
             child: const Text(
               "Edit",
               style: TextStyle(
@@ -64,8 +75,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 65),
-              profileTitle(title: "User Name"),
-              userDetailText(txt: "Youssef Ebrahim Mohamed"),
+              profileTitle(title: "User Name", isEdite: isEdite),
+              userDetailText(
+                  txt: "Youssef Ebrahim Mohamed",
+                  keyboardType: TextInputType.text,
+                  isEdite: isEdite),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 135),
                 child: Divider(
@@ -73,8 +87,11 @@ class ProfileScreen extends StatelessWidget {
                   thickness: 2,
                 ),
               ),
-              profileTitle(title: "E-mail"),
-              userDetailText(txt: "youssife2brahim22@gmail.com"),
+              profileTitle(title: "E-mail", isEdite: isEdite),
+              userDetailText(
+                  txt: "youssife2brahim22@gmail.com",
+                  keyboardType: TextInputType.emailAddress,
+                  isEdite: isEdite),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 135),
                 child: Divider(
@@ -82,8 +99,11 @@ class ProfileScreen extends StatelessWidget {
                   thickness: 2,
                 ),
               ),
-              profileTitle(title: "Gender"),
-              userDetailText(txt: "Male"),
+              profileTitle(title: "Gender", isEdite: isEdite),
+              userDetailText(
+                  txt: "Male",
+                  keyboardType: TextInputType.name,
+                  isEdite: isEdite),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 135),
                 child: Divider(
@@ -91,8 +111,11 @@ class ProfileScreen extends StatelessWidget {
                   thickness: 2,
                 ),
               ),
-              profileTitle(title: "Age"),
-              userDetailText(txt: "21"),
+              profileTitle(title: "Age", isEdite: isEdite),
+              userDetailText(
+                  txt: "21",
+                  keyboardType: TextInputType.number,
+                  isEdite: isEdite),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 60),
                 child: Divider(
@@ -100,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
                   thickness: 2,
                 ),
               ),
-              profileTitle(title: "Account type"),
+              profileTitle(title: "Account type", isEdite: isEdite),
               Container(
                 margin: const EdgeInsets.only(bottom: 20, top: 8),
                 padding:
@@ -120,19 +143,39 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget userDetailText({required String txt}) => Container(
-      margin: const EdgeInsets.all(10),
-      child: Text(
-        txt,
-        style: const TextStyle(color: kSecondaryColor),
-      ));
+  Widget userDetailText(
+          {required String txt,
+          required TextInputType keyboardType,
+          required bool isEdite}) =>
+      Container(
+          margin: const EdgeInsets.all(10),
+          child: TextFormField(
+            readOnly: !isEdite,
+            keyboardType: keyboardType,
+            decoration: const InputDecoration(border: InputBorder.none),
+            textAlign: TextAlign.center,
+            initialValue: txt,
+            style: const TextStyle(color: kSecondaryColor),
+          ));
 
-  Widget profileTitle({required String title}) => Container(
+  Widget profileTitle({required String title, required bool isEdite}) =>
+      Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30), color: kSecondaryColor),
-        child: Text(
+        child: isEdite? Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+          Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const Text(
+          "  *",
+          style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 239, 22, 6)),
+        ),
+        ],):Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 
@@ -17,15 +16,16 @@ class ZDrawer extends StatelessWidget {
     return  ZoomDrawer(
       controller: zoomDrawerController,
       style: DrawerStyle.defaultStyle,
-      angle: -10,
-      borderRadius: 40,
+      angle: 0,
+      borderRadius: 30,
+
       //openCurve: Curves.fastOutSlowIn,
       slideWidth: Get.width*0.6,
       mainScreenTapClose: true,
       showShadow: true,
       drawerShadowsBackgroundColor: kOrangeColor,
       menuBackgroundColor: kkBlue,
-      mainScreen:   const HomePage(),
+      mainScreen: const HomePage(),
       menuScreen: const DrawerScreen(),
     );
   }

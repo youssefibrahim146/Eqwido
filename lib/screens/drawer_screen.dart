@@ -10,70 +10,68 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: kkBlue,
-        body: Padding(
-          padding: const EdgeInsets.only(left: kDefultPadding / 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: const [
-                  CircleAvatar(
-                    minRadius: 30,
-                    foregroundColor: Colors.grey,
-                    maxRadius: 30,
-                    backgroundColor: Colors.grey,
-                    backgroundImage: AssetImage('assets/icons/person.png'),
-                  ),
-                  SizedBox(height: 15),
-                  // -------------user name ----------------
-                  Text(
-                    'Youssef Ebrahim',
-                    style: TextStyle(
-                        color: kSecondaryColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              //--------------buttons-----------
-              Column(
-                children: [
-                  drawerBtn(
-                    icon: Icons.input_rounded,
-                    title: 'Login | Sign up',
-                    onTap: () {
-                      Get.to(() => const LoginPage());
-                    },
-                  ),
-                  drawerBtn(
-                    icon: Icons.web_asset_outlined,
-                    title: 'Eqwido Website',
-                    onTap: () {},
-                  ),
-                  drawerBtn(
-                    icon: Icons.rate_review_outlined,
-                    title: 'Rate Us',
-                    onTap: () {},
-                  ),
-                  drawerBtn(
-                    icon: Icons.contact_page_outlined,
-                    title: 'Contact Us',
-                    onTap: () {},
-                  ),
-                  drawerBtn(
-                    icon: Icons.info_outlined,
-                    title: 'About Us',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: kkBlue,
+      body: Padding(
+        padding: const EdgeInsets.only(left: kDefultPadding / 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              children: const [
+                CircleAvatar(
+                  minRadius: 30,
+                  foregroundColor: Colors.grey,
+                  maxRadius: 30,
+                  backgroundColor: Colors.grey,
+                  backgroundImage: AssetImage('assets/icons/person.png'),
+                ),
+                SizedBox(height: 15),
+                // -------------user name ----------------
+                Text(
+                  'Youssef Ebrahim',
+                  style: TextStyle(
+                      color: kSecondaryColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            //--------------buttons-----------
+            Column(
+              children: [
+                drawerBtn(
+                  icon: Icons.input_rounded,
+                  title: 'Login | Sign up',
+                  onTap: () {
+                    Get.to(() => const LoginPage());
+                  },
+                ),
+                drawerBtn(
+                  icon: Icons.web_asset_outlined,
+                  title: 'Eqwido Website',
+                  onTap: () {},
+                ),
+                drawerBtn(
+                  icon: Icons.rate_review_outlined,
+                  title: 'Rate Us',
+                  onTap: () {},
+                ),
+                drawerBtn(
+                  icon: Icons.contact_page_outlined,
+                  title: 'Contact Us',
+                  onTap: () {},
+                ),
+                drawerBtn(
+                  icon: Icons.info_outlined,
+                  title: 'About Us',
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

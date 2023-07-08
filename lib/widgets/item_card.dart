@@ -103,11 +103,7 @@ class _ItemCardState extends State<ItemCard> {
                             )),
                           );
                         }),
-                      ), /* Image.network(
-                        '${product.elementAt(index)['image'][0]}',
-                        fit: BoxFit.fill,
-                        width: double.infinity,
-                      ), */
+                      ),
                     ),
                   ),
                   const SizedBox(height: 4),

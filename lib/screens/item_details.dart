@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eqwido/models/colors.dart';
 import 'package:expandable/expandable.dart';
@@ -127,7 +128,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           iconColor: kOrangeColor, iconSize: 30),
                       header: const Text(
                         'Specification',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                       collapsed: const SizedBox(),
                       expanded: AutoSizeText(
@@ -156,7 +158,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           iconColor: kOrangeColor, iconSize: 30),
                       header: const Text(
                         'Shop location',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                       collapsed: const SizedBox(),
                       expanded: AutoSizeText(
@@ -187,7 +190,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       ),
                       header: const Text(
                         'Reviews',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                       collapsed: const SizedBox(),
                       expanded: AutoSizeText(
@@ -276,12 +280,20 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   }
 
   Widget buildImage(String url, int i) => Container(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        color: Colors.grey,
-        child: Image.network(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      color: Colors.grey,
+      child: CachedNetworkImage(
+        imageUrl: product.elementAt(widget.index)['image'][i],
+        fit: BoxFit.fill,
+        placeholder: ((context, url) => const Center(
+              child: CircularProgressIndicator(
+                color: kOrangeColor,
+              ),
+            )),
+      ) /* Image.network(
           product.elementAt(widget.index)['image'][i],
           fit: BoxFit.fill,
-        ),
+        ), */
       );
 
   Widget buildIndecator() => AnimatedSmoothIndicator(

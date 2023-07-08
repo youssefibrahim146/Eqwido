@@ -2,8 +2,15 @@ import 'package:eqwido/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpAsUserScreen extends StatelessWidget {
+class SignUpAsUserScreen extends StatefulWidget {
   const SignUpAsUserScreen({super.key});
+
+  @override
+  State<SignUpAsUserScreen> createState() => _SignUpAsUserScreenState();
+}
+
+class _SignUpAsUserScreenState extends State<SignUpAsUserScreen> {
+  bool isObscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -92,14 +99,35 @@ class SignUpAsUserScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: kprimaryColor,
                     borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  style: const TextStyle(color: kSecondaryColor),
-                  decoration: const InputDecoration(
-                      hintText: 'Password',
-                      border: InputBorder.none,
-                      hintMaxLines: 1,
-                      hintStyle: TextStyle(
-                          color: kSecondaryColor, fontWeight: FontWeight.bold)),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        obscureText: isObscureText,
+                        style: const TextStyle(color: kSecondaryColor),
+                        decoration: const InputDecoration(
+                            hintText: 'Password',
+                            border: InputBorder.none,
+                            hintMaxLines: 1,
+                            hintStyle: TextStyle(
+                                color: kSecondaryColor,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObscureText = isObscureText ? false : true;
+                        });
+                      },
+                      icon: Icon(
+                        !isObscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: kSecondaryColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -109,14 +137,35 @@ class SignUpAsUserScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: kprimaryColor,
                     borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  style: const TextStyle(color: kSecondaryColor),
-                  decoration: const InputDecoration(
-                      hintText: 'Re-enter password',
-                      border: InputBorder.none,
-                      hintMaxLines: 1,
-                      hintStyle: TextStyle(
-                          color: kSecondaryColor, fontWeight: FontWeight.bold)),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        obscureText: isObscureText,
+                        style: const TextStyle(color: kSecondaryColor),
+                        decoration: const InputDecoration(
+                            hintText: 'Re-enter password',
+                            border: InputBorder.none,
+                            hintMaxLines: 1,
+                            hintStyle: TextStyle(
+                                color: kSecondaryColor,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isObscureText = isObscureText ? false : true;
+                        });
+                      },
+                      icon: Icon(
+                        !isObscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: kSecondaryColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               ElevatedButton(

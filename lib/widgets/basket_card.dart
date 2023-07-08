@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,17 +27,16 @@ class BasketCard extends StatelessWidget {
               width: Get.width,
               height: 150,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(0,0),
-                    color: Colors.black26,
-                    spreadRadius: 1,
-                    blurRadius: 15,
-                  )
-                ]
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(
+                      offset: Offset(0, 0),
+                      color: Colors.black26,
+                      spreadRadius: 1,
+                      blurRadius: 15,
+                    )
+                  ]),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -49,10 +49,23 @@ class BasketCard extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        '${basketItem.elementAt(index)['image']}',
+                      child: CachedNetworkImage(
+                        width: double.infinity,
+                        placeholder: ((context, url) => const Center(
+                                child: CircularProgressIndicator(
+                              color: kOrangeColor,
+                            ))),
+                        imageUrl: product.elementAt(index)['image'][index],
                         fit: BoxFit.fill,
-                        //width: double.infinity,
+                        imageBuilder: ((context, imageProvider) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
+                            )),
+                          );
+                        }),
                       ),
                     ),
                   ),
@@ -107,7 +120,8 @@ class BasketCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 7),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 18, horizontal: 7),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

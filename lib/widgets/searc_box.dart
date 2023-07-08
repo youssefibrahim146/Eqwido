@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import '../models/colors.dart';
 import '../models/constants.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBaar extends StatelessWidget {
   final ValueChanged onChanged;
-  const SearchBar({
+  const SearchBaar({
     Key? key,
     required this.onChanged,
   }) : super(key: key);

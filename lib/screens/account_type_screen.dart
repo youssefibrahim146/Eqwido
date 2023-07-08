@@ -1,4 +1,5 @@
 import 'package:eqwido/models/colors.dart';
+import 'package:eqwido/screens/seller_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -55,7 +56,9 @@ class AccountTypeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(const SellerHomepage());
+                        },
                         style: ButtonStyle(
                             padding: MaterialStateProperty.all(
                                 const EdgeInsets.symmetric(

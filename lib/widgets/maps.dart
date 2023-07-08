@@ -28,7 +28,7 @@ class _StoreMapState extends State<StoreMap> {
     final mapsService = GoogleMapsFlutter.create();
     final storesResponse = await mapsService.searchNearbyWithRadius(
       Location(_currentLocation.latitude, _currentLocation.longitude),
-      5000, // search radius in meters
+       5000,// search radius in meters
       type: 'store',
     );
     setState(() {

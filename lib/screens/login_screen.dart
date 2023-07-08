@@ -1,11 +1,35 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:eqwido/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'account_type_screen.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
+  bool isObscureText = true;
+
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+
+
+logIN(TextEditingController emailController,TextEditingController passwordController){
+  final bool isValid = EmailValidator.validate(emailController.text);
+  if (emailController.text.isEmpty||passwordController.text.isEmpty) {
+    Get.snackbar("Try again", "Make sure that email and password are entered.",backgroundColor: kSecondaryColor);
+  }else if (!isValid) {
+    Get.snackbar("Try again", "Invalid e-mail please try again.",backgroundColor: kSecondaryColor);
+  }else if (passwordController.text.length<8) {
+    Get.snackbar("Try again", "Wrong password.",backgroundColor: kSecondaryColor);
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +59,7 @@ class LoginPage extends StatelessWidget {
                     color: kSecondaryColor,
                     borderRadius: BorderRadius.circular(20)),
                 child: TextFormField(
+                  controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     hintText: 'Type your Email Here',
@@ -51,12 +76,25 @@ class LoginPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: kSecondaryColor,
                     borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                    border: InputBorder.none,
-                    hintMaxLines: 1,
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        obscureText: isObscureText,
+                        controller: _passwordController,
+                        decoration: const InputDecoration(
+                          hintText: 'Password',
+                          border: InputBorder.none,
+                          hintMaxLines: 1,
+                        ),
+                      ),
+                    ),
+                    IconButton(onPressed: (){
+                      setState(() {
+                        isObscureText= isObscureText?false:true;
+                      });
+                    }, icon: Icon(!isObscureText?Icons.visibility:Icons.visibility_off)),
+                  ],
                 ),
               ),
               const Text(
@@ -65,8 +103,11 @@ class LoginPage extends StatelessWidget {
                     color: kSecondaryColor, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 25),
+              //  ----------- login button -------------------------
               ElevatedButton(
-                onPressed: () {},
+                onPressed: (){
+                  logIN(_emailController,_passwordController);
+                },
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all(
                         const EdgeInsets.symmetric(
@@ -84,6 +125,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
+              // --------------------------------------------------
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -152,7 +194,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Dont Have an account?",
+                    "Don't Have an account?",
                     style: TextStyle(color: kSecondaryColor),
                   ),
                   TextButton(
@@ -160,10 +202,9 @@ class LoginPage extends StatelessWidget {
                     child: const Text(
                       'Register',
                       style: TextStyle(
-                        color: kOrangeColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15
-                      ),
+                          color: kOrangeColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
                     ),
                   ),
                 ],

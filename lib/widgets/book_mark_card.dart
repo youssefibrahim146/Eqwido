@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,11 +48,22 @@ class _BookMarCardState extends State<BookMarCard> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
-                    child: Image.network(
-                      '${bookMarkItem.elementAt(index)['image']}',
-                      fit: BoxFit.fill,
-                      //width: double.infinity,
-                    ),
+                    child: CachedNetworkImage(
+                        width: double.infinity,
+                        placeholder: ((context, url) =>
+                            const Center(child: CircularProgressIndicator(color: kOrangeColor,))),
+                        imageUrl: product.elementAt(index)['image'][index],
+                        fit: BoxFit.fill,
+                        imageBuilder: ((context, imageProvider) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
+                            )),
+                          );
+                        }),
+                      ),
                   ),
                 ),
                 //------------image----------------
